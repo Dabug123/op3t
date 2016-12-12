@@ -16,6 +16,10 @@
 include $(srctree)/arch/arm64/boot/dts/15811_PVT/Makefile
 include $(srctree)/arch/arm64/boot/dts/15811_PVT2/Makefile
 include $(srctree)/arch/arm64/boot/dts/15811_PVT3/Makefile
+include $(srctree)/arch/arm64/boot/dts/15801_EVT2/Makefile
+include $(srctree)/arch/arm64/boot/dts/15801_EVT3/Makefile
+include $(srctree)/arch/arm64/boot/dts/15801_DVT/Makefile
+include $(srctree)/arch/arm64/boot/dts/15801_PVT/Makefile
 
 targets := Image Image.gz
 
