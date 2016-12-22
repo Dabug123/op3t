@@ -40,7 +40,9 @@
 #include <linux/wakelock.h>
 #include "oem_external_fg.h"
 
+#if defined(CONFIG_CRPL_HELPER)
 #include "../oneplus/coretech/crpl_helper.h"
+#endif
 
 #define DRIVER_VERSION			"1.1.0"
 /* Bq27541 standard data commands */
@@ -677,7 +679,9 @@ out:
 				bq27541_average_current(di) / 1000);
 	}
 
+#if defined(CONFIG_CRPL_HELPER)
 	ctech_crpl_hook_battery_capacity(soc_calib);
+#endif
 
 	return soc_calib;
 }

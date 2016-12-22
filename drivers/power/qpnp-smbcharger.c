@@ -40,7 +40,9 @@
 #include <linux/ktime.h>
 #include "pmic-voter.h"
 #include "oem_external_fg.h"
+#if defined(CONFIG_CRPL_HELPER)
 #include "../oneplus/coretech/crpl_helper.h"
+#endif
 #include <linux/type-c_notifier.h>
 #include <linux/wakelock.h>
 #include <linux/proc_fs.h>
@@ -7085,7 +7087,9 @@ static irqreturn_t src_detect_handler(int irq, void *_chip)
 		return IRQ_HANDLED;
 	}
 
+#if defined(CONFIG_CRPL_HELPER)
 	ctech_crpl_hook_usb_detect(src_detect? 1: 0);
+#endif
 
 	if (src_detect)
 		complete_all(&chip->src_det_raised);

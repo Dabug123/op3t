@@ -31,7 +31,9 @@
 #include <linux/kthread.h>
 #include <linux/slab.h>
 
+#if defined(CONFIG_CRPL_HELPER)
 #include "../oneplus/coretech/crpl_helper.h"
+#endif
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/cpufreq_interactive.h>
@@ -645,8 +647,10 @@ rearm:
 		pcpu = &per_cpu(cpuinfo, i);
 		govinfo.cpu = i;
 		govinfo.load = pcpu->loadadjfreq / ppol->policy->max;
+#if defined(CONFIG_CRPL_HELPER)
 		ctech_crpl_set_cpuload(govinfo.cpu, govinfo.load);
 		ctech_crpl_set_target_freq(govinfo.cpu, ppol->target_freq);
+#endif
 		govinfo.sampling_rate_us = tunables->timer_rate;
 		atomic_notifier_call_chain(&cpufreq_govinfo_notifier_list,
 					   CPUFREQ_LOAD_CHANGE, &govinfo);

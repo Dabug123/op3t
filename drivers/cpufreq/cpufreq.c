@@ -30,7 +30,9 @@
 #include <linux/tick.h>
 #include <trace/events/power.h>
 
+#if defined(CONFIG_CRPL_HELPER)
 #include "../oneplus/coretech/crpl_helper.h"
+#endif
 
 /**
  * The "cpufreq driver" - the arch- or hardware-dependent low
@@ -336,8 +338,10 @@ static void __cpufreq_notify_transition(struct cpufreq_policy *policy,
 		trace_cpu_frequency(freqs->new, freqs->cpu);
 		srcu_notifier_call_chain(&cpufreq_transition_notifier_list,
 				CPUFREQ_POSTCHANGE, freqs);
+#if defined(CONFIG_CRPL_HELPER)
 		if (likely(policy) && likely(policy->cpu == freqs->cpu))
 			ctech_crpl_hook_calculate_saved_energy(policy->cpu);
+#endif
 		if (likely(policy) && likely(policy->cpu == freqs->cpu))
 			policy->cur = freqs->new;
 		break;
